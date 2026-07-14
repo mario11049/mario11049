@@ -8,12 +8,12 @@ while True:
     print("3.delete the name")
     print("4.exit")
     print("*" * 25)
-    choice = input("enter ouur choice")
+    choice = input("enter ouur choice: ")
     if choice == "1":
         with open("hellow.txt", "a") as file:
             name = input("enter your name: ")
             town = input("enter your town: ")
-            writer = csv.DictWriter(file)
+            writer = csv.writer(file)
             writer.writerow([name, town])
             print("name and town succefully stored!!")
     elif choice == "2":
@@ -25,22 +25,27 @@ while True:
             print(f"{student['name']} is living in {student['town']}")
     elif choice == "3":
         print("enter the details you need to delete")
+        name = input("enter the name you wamt to delete: ")
+        town = input("enter the town you want to delete: ")
+        rows = []
+        deleted = False
         try:
-            name = input("enter the name you wamt to delete: ")
-            town = input("enter the town you want to delete: ")
-            rows = []
             with open("hellow.txt", "r") as file:
                 reader = csv.reader(file)
                 header = next(reader)
                 for row in reader:
-                    if row != [name , town]:
-                        rows.append(row)
+                    if row == [name , town]:
+                        deleted = True
                     else:
-                        with open("hellow.txt", "w", newline="") as file:
-                            writer.writerow(header)
-                            writer = csv.writer(file)
-                            writer.writerow(rows)
-            print("name and town deleted!!")
+                        rows.append(row)
+                with open("hellow.txt", "w", newline="") as file:
+                    writer = csv.writer(file)
+                    writer.writerow(header)
+                    writer.writerows(rows)
+                    if deleted:
+                        print("person deleted successfully!!")
+                    else:
+                        print("person not found.")
         except:
             print("enter valid name and town if you has any doubt please view them once")
     elif choice == "4":
