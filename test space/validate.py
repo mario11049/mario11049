@@ -1,6 +1,8 @@
-import re
-url = input("url: ")
-if modified := re.search(r".+(?:\..+)?@.+\.(edu|com)", url, re.IGNORECASE ):
-    print("valid")
+import re 
+name = input("whats your name: ").strip()
+matches = re.search(r"(.+), *(.+)", name)
+if matches:
+    name = matches.group(1) + " " + matches.group(2)
+    print(f"hello, {name}")
 else:
-    print("invalid")
+    print("enter valid name")
