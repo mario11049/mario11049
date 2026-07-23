@@ -4,29 +4,15 @@ class Student:
         self.house = house
     def __str__(self):
         return(f"{self.name} from {self.house}")
-    @property
-    def name(self):
-        return self._name
-    @name.setter
-    def name(self, name):
-        if not name:
-            raise ValueError("name not defined!!")
-        self._name = name
-    @property
-    def house(self):
-        return self._house
-    @house.setter
-    def house(self, house):
-        if house not in ["gryffindor","hufflepuff", "ravanclaw", "slytherin"]:
-            raise ValueError ("house not defined!!")
-        self._house = house
+    @classmethod
+    def get(cls):
+        name = input("enter your name: ")
+        house = input("enter your house: ")
+        return cls(name, house)
 def main():
-    student = get_student()
+    student = Student.get()
     print(student)
-def get_student():
-    name = input("name: ")
-    house = input("home: ")
-    return Student(name, house)
+
 
 if __name__ == "__main__":
     main()
