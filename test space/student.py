@@ -1,32 +1,32 @@
 class Student:
-    def __init__(self , name, house, patronus):
+    def __init__(self , name, house):
         self.name = name
         self.house = house
-        self.patronus = patronus
     def __str__(self):
         return(f"{self.name} from {self.house}")
-    def charm(self):
-        match self.patronus:
-            case "stag":
-                return"🐴"
-            case "otter":
-                return"🥾"
-            case "mario":
-                return"🕹️"
-            case _:
-                return"🙏🏻"
-
+    @property
+    def name(self):
+        return self._name
+    @name.setter
+    def name(self, name):
+        if not name:
+            raise ValueError("name not defined!!")
+        self._name = name
+    @property
+    def house(self):
+        return self._house
+    @house.setter
+    def house(self, house):
+        if house not in ["gryffindor","hufflepuff", "ravanclaw", "slytherin"]:
+            raise ValueError ("house not defined!!")
+        self._house = house
 def main():
     student = get_student()
     print(student)
-    print(student.charm())
-
 def get_student():
     name = input("name: ")
     house = input("home: ")
-    patronus = input("patronus: ")
-    student = Student(name, house, patronus)
-    return student
+    return Student(name, house)
 
 if __name__ == "__main__":
     main()
